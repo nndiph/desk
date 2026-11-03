@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cozy Desk Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+    <div class="overlays" id="overlays"></div>
+
+    <div class="loader" id="loader">
+      <div class="loader__glow"></div>
+      <p class="loader__text">warming up the lamp…</p>
+    </div>
+
+    <header class="brand">
+      <span class="brand__title">cozy desk</span>
+      <span class="brand__sub">studio</span>
+    </header>
+
+    <p class="hint" id="hint">click on something to take a closer look</p>
+
+    <div class="focus" id="focus">
+      <button class="focus__back" id="backBtn" type="button">
+        <span aria-hidden="true">←</span> back
+      </button>
+      <div class="focus__label">
+        <span class="focus__title" id="focusTitle"></span>
+        <span class="focus__sub" id="focusSub"></span>
+      </div>
+      <div class="focus__actions" id="focusActions"></div>
+    </div>
+
+    <button class="timer-chip" id="timerChip" type="button" aria-label="Open the focus timer">
+      <span class="timer-chip__dot" aria-hidden="true"></span>
+      <span id="timerChipText"></span>
+    </button>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <button class="arrange" id="arrangeBtn" type="button">arrange</button>
+
+    <div class="setup" id="setup">
+      <p class="setup__hint">drag to move · scroll or Q / E to rotate · Delete to remove</p>
+      <div class="setup__row">
+        <span class="setup__label">add to desk</span>
+        <div class="setup__chips" id="setupChips"></div>
+      </div>
+      <button class="setup__reset" id="resetBtn" type="button">reset</button>
+    </div>
+
+    <div class="selbar" id="selbar">
+      <span class="selbar__name" id="selName"></span>
+      <button type="button" data-act="ccw" aria-label="Rotate left">↺</button>
+      <button type="button" data-act="cw" aria-label="Rotate right">↻</button>
+      <button type="button" data-act="remove" id="selRemove">remove</button>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <input class="visually-hidden" id="photoInput" type="file" accept="image/*" tabindex="-1" aria-hidden="true" />
+
+    <figure class="lightbox" id="lightbox" tabindex="-1" aria-label="Photo, click to close">
+      <img alt="" />
+      <figcaption></figcaption>
+    </figure>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

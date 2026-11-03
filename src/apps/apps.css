@@ -1,0 +1,597 @@
+/* ---------- projected overlays ---------- */
+.overlays {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+}
+
+.overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.5s ease;
+}
+
+/* ---------- laptop desktop (laid out at 1152×700, shown scaled down) ---------- */
+.lap {
+  overflow: hidden;
+  color: #fbf3e6;
+  font-family: var(--sans);
+  background: #120d14;
+  user-select: none;
+}
+
+.lap__bg,
+.lap__shade {
+  position: absolute;
+  inset: 0;
+}
+
+.lap__bg {
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px) saturate(1.05);
+  transform: scale(1.04);
+}
+
+.lap__shade {
+  background: linear-gradient(180deg, rgba(14, 10, 20, 0.55), rgba(14, 10, 20, 0.25) 40%, rgba(14, 10, 20, 0.6));
+}
+
+.lap__bar {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 46px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 19px;
+  letter-spacing: 0.04em;
+  color: rgba(251, 243, 230, 0.8);
+  background: rgba(10, 8, 14, 0.35);
+}
+
+.lap__hello {
+  position: absolute;
+  left: 64px;
+  top: 82px;
+}
+
+.lap__hello h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 60px;
+  line-height: 1.05;
+}
+
+.lap__hello p {
+  margin-top: 6px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 25px;
+  color: rgba(251, 243, 230, 0.7);
+}
+
+.lap__cards {
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  bottom: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.lap__card {
+  height: 390px;
+  padding: 34px 38px;
+  border-radius: 30px;
+  background: rgba(30, 22, 30, 0.5);
+  border: 1px solid rgba(255, 225, 190, 0.18);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* zero-specificity reset so the component classes below win without !important */
+:where(.lap) button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.lap button:focus-visible,
+.lap input:focus-visible {
+  outline: 3px solid #ffd39a;
+  outline-offset: 4px;
+}
+
+.lap__modes {
+  display: flex;
+  gap: 10px;
+}
+
+.lap__chip {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 18px;
+  color: rgba(251, 243, 230, 0.7);
+  border: 1px solid rgba(255, 225, 190, 0.18);
+}
+
+.lap__chip.is-active {
+  color: #23180f;
+  background: #ffd9a3;
+  border-color: transparent;
+}
+
+.lap__time {
+  margin: 18px 0 10px;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 132px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.lap__controls {
+  display: flex;
+  gap: 14px;
+}
+
+.lap__primary,
+.lap__ghost {
+  height: 58px;
+  padding: 0 34px;
+  border-radius: 999px;
+  font-size: 21px;
+  letter-spacing: 0.05em;
+}
+
+.lap__primary {
+  color: #23180f;
+  background: #ffd39a;
+  box-shadow: 0 0 40px rgba(255, 196, 120, 0.35);
+}
+
+.lap__primary.is-running {
+  background: #f4e7d3;
+  box-shadow: none;
+}
+
+.lap__ghost {
+  border: 1px solid rgba(255, 225, 190, 0.3);
+}
+
+.lap__sessions {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 18px;
+  color: rgba(251, 243, 230, 0.65);
+}
+
+.lap__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.lap__dots i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 211, 154, 0.6);
+}
+
+.lap__dots i.is-on {
+  background: #ffd39a;
+  border-color: #ffd39a;
+}
+
+.lap__card h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 36px;
+}
+
+.lap__muted {
+  margin: 4px 0 22px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 20px;
+  color: rgba(251, 243, 230, 0.6);
+}
+
+.lap__sound {
+  display: grid;
+  grid-template-columns: 52px 1fr 150px 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 225, 190, 0.1);
+}
+
+.lap__icon {
+  width: 46px;
+  height: 46px;
+  padding: 10px;
+  border-radius: 50%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: rgba(251, 243, 230, 0.6);
+  background: rgba(255, 255, 255, 0.06);
+  transition: color 0.3s, background 0.3s;
+}
+
+.lap__sound.is-on .lap__icon {
+  color: #23180f;
+  background: #ffd39a;
+}
+
+.lap__name {
+  font-size: 22px;
+}
+
+.lap__sound input[type='range'] {
+  width: 100%;
+  accent-color: #ffd39a;
+  cursor: pointer;
+}
+
+.lap__switch {
+  position: relative;
+  width: 60px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  transition: background 0.3s;
+}
+
+.lap__switch span {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fbf3e6;
+  transition: transform 0.3s ease;
+}
+
+.lap__switch[aria-checked='true'] {
+  background: #e9a868;
+}
+
+.lap__switch[aria-checked='true'] span {
+  transform: translateX(26px);
+}
+
+/* ---------- notebook to-do page (512×700) and sticky notes (360×n) ---------- */
+.todo,
+.note-edit {
+  font-family: var(--hand);
+  color: #34343e;
+}
+
+.todo__title {
+  position: absolute;
+  left: 84px;
+  top: 52px;
+  font-size: 34px;
+  font-weight: 600;
+}
+
+.todo__list {
+  position: absolute;
+  left: 74px;
+  right: 22px;
+  top: 106px;
+  list-style: none;
+  padding: 0;
+}
+
+.todo__row {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todo__check {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(52, 52, 62, 0.55);
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.todo__check:focus-visible,
+.todo__del:focus-visible {
+  outline: 2px solid #c98a52;
+  outline-offset: 2px;
+}
+
+.todo__row.is-done .todo__check {
+  background: rgba(52, 52, 62, 0.55);
+}
+
+.todo__row.is-done .todo__check::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 11px;
+  border: solid #f8f5ef;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.todo__plus {
+  flex: none;
+  width: 22px;
+  text-align: center;
+  font: 600 30px/1 var(--hand);
+  color: rgba(52, 52, 62, 0.45);
+}
+
+.todo__input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 6px 0 0;
+  border: none;
+  background: transparent;
+  font: 600 31px/38px var(--hand);
+  color: inherit;
+  outline: none;
+}
+
+.todo__input::placeholder {
+  color: rgba(52, 52, 62, 0.4);
+}
+
+.todo__row.is-done .todo__input {
+  text-decoration: line-through;
+  color: rgba(52, 52, 62, 0.45);
+}
+
+.todo__del {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  font: 400 24px/1 var(--sans);
+  color: rgba(52, 52, 62, 0.4);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.todo__row:hover .todo__del,
+.todo__row:focus-within .todo__del {
+  opacity: 1;
+}
+
+.note-edit textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font-family: var(--hand);
+  font-weight: 500;
+  overflow: hidden;
+  caret-color: #c98a52;
+}
+
+/* ---------- polaroid caption (512×620) ---------- */
+/* only the caption field takes clicks; the photo itself stays clickable in 3D */
+.polaroid-edit.is-visible {
+  pointer-events: none;
+}
+
+.polaroid-edit input {
+  position: absolute;
+  pointer-events: auto;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-align: center;
+  font-family: var(--hand);
+  font-weight: 600;
+  color: #3d3530;
+  caret-color: #c98a52;
+}
+
+.polaroid-edit input::placeholder {
+  color: rgba(61, 53, 48, 0.35);
+}
+
+/* ---------- photo lightbox ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 18px;
+  padding: 48px 16px;
+  background: rgba(14, 10, 8, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: zoom-out;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+  outline: none;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease;
+}
+
+.lightbox img {
+  max-width: min(90vw, 1100px);
+  max-height: 74vh;
+  object-fit: contain;
+  padding: 14px 14px 0;
+  background: #f7f3ec;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  transform: scale(0.96);
+  transition: transform 0.4s ease;
+}
+
+.lightbox.is-open img {
+  transform: none;
+}
+
+.lightbox figcaption {
+  font: 600 30px/1.2 var(--hand);
+  color: var(--ink);
+  text-align: center;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- focus bar actions + timer pill ---------- */
+.focus__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.focus__actions:empty {
+  display: none;
+}
+
+.focus__action {
+  font: 500 12px/1 var(--sans);
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.focus__action:hover:not(:disabled) {
+  background: rgba(60, 42, 28, 0.6);
+  border-color: rgba(255, 211, 154, 0.45);
+}
+
+.focus__action:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.focus__action:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
+
+.timer-chip {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font: 500 13px/1 var(--sans);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: rgba(24, 17, 13, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  opacity: 0;
+  transform: translate(-50%, -8px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.timer-chip.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+.timer-chip:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
+
+.timer-chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--glow);
+  box-shadow: 0 0 10px var(--glow);
+  animation: breathe 1.8s ease-in-out infinite;
+}
+
+.timer-chip.is-paused .timer-chip__dot {
+  animation: none;
+  opacity: 0.5;
+}
+
+.is-arranging .timer-chip {
+  visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .timer-chip {
+    top: 60px;
+  }
+  .focus {
+    flex-wrap: wrap;
+  }
+}
